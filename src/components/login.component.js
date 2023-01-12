@@ -1,62 +1,64 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useContext } from 'react'
 
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from './ContexProvider';
+
 const login = () => {
   const [inputs, setInputs] = useState({
     nic: '',
     password: '',
     jobRole: ''
   });
+  // const { loggedInCheck } = useContext(UserContext);
   const [wait, setWait] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs(values => ({ ...values, [name]: value }));
   }
-  const { register, handleSubmit, formState: { errors } } = useForm();
 
 
-  const loginUser = async ({ nic, password ,jobRole}) => {
+
+  const loginUser = async ({ nic, password, jobRole }) => {
     setWait(true);
     try {
-      const { data } = await axios.post('http://localhost/StudentAPi/login.php', {
-        nic,
-        password,
-        jobRole,
-      });
-      if (data.success && data.token) {
-        // localStorage.setItem('loginToken', data.token);
-        // setWait(false);  
-         console.log( data )
+      const { data } = await axios.post('http://localhost/StudentAPi/login.php', { nic, password, jobRole });
+      // console.log(data);
+      if (data.success && data.token && data.jobRole == 'student') {
+        localStorage.setItem('loginToken', data.token);
+        setWait(false);
+        navigate('/Student',{state:{
+          inputs
+        }})
+     
+        return { success: 1 };
+      } else if (data.success && data.token && data.jobRole == 'teacher') {
+        localStorage.setItem('loginToken', data.token);
+        navigate('/Teacher');
+        setWait(false);
         return { success: 1 };
       }
-      // setWait(false);
-      console.log( data )
+      setWait(false);
       return { success: 0, message: data.message };
     }
     catch (err) {
       // setWait(false);
       console.log(err)
       return { success: 0, message: 'Server Error!' };
-      
+
     }
 
   }
+
+
   const userlogin = async (e) => {
     e.preventDefault();
-
     const data = await loginUser(inputs);
-    if(data.success){
-        // e.target.reset();
-        // setRedirect('Redirecting...');
-        // await loggedInCheck();
-        console.log(data.success)
-        return;
-    }
-
-    console.log(inputs);
+    // console.log(data)
   }
   return (
     <form

@@ -5,13 +5,13 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 import Login from './components/login.component'
 import SignUp from './components/signup.component'
-import { StudentHome } from './components/studentHome'
-
+import  StudentHome  from './components/StudentHome.component'
+import TeacherHome from './components/Teacher.component'
 function App() {
-  return (
+  return (  
     <Router>
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container">
             <Link className="navbar-brand" to={'/sign-in'}>
               Student Management System
@@ -33,13 +33,14 @@ function App() {
           </div>
         </nav>
 
-        <div className="auth-wrapper">
+        <div className="auth-wrapper" >
           <div className="auth-inner">
             <Routes>
               <Route exact path="/" element={<Login />} />
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
-              <Route path="Student" element={<StudentHome />} />
+              <Route path="/Student" element={<StudentHome />} />
+              <Route path="/Teacher" element={<TeacherHome   />} />
             </Routes>
           </div>
         </div>

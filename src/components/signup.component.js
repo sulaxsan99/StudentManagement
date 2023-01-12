@@ -1,8 +1,11 @@
 import React, {Component,useState} from 'react'
 import axios from "axios";
 import { useForm } from "react-hook-form"; 
+import { useNavigate } from 'react-router-dom';
 export default function SignUp() {
     const [inputs, setInputs] = useState([]);
+    const navigate = useNavigate();
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -16,6 +19,7 @@ export default function SignUp() {
             axios.post('http://localhost/StudentAPi/index', inputs).then(function(response){
                 console.log(response.data);
             });
+
         } catch (error) {
             console.log(error)
         }
@@ -27,6 +31,8 @@ export default function SignUp() {
          onSubmit={onSubmit}
          >
             <h3>Sign Up</h3>
+<div>
+
 
             <div className="mb-3">
                 <label>First Name</label>
@@ -52,7 +58,7 @@ export default function SignUp() {
                 <input type="text" className="form-control" name='nic' placeholder="Enter NIC"   onChange={handleChange}
                 />
             </div>
-
+</div>
             <div className="mb-3">
                 <label>Email</label>
                 <input type="email" className="form-control" name='email' placeholder="Enter Email"  onChange={handleChange}
