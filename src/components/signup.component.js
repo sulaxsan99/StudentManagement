@@ -24,8 +24,6 @@ export default function SignUp() {
                     navigate('/sign-up')
                 }
             });
-           
-
         } catch (error) {
             console.log(error)
         }

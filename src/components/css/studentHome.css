@@ -1,0 +1,27 @@
+.student{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+}
+.SHome{
+    display: flex;
+   align-items: center;
+   
+
+}
+.detail{
+    display: flex;
+    flex-direction: column;
+align-items: center;
+flex: 1.5;
+
+}
+.result{
+    display: flex;
+    flex-direction: column;
+align-items: center;
+
+flex: 1.5;
+}

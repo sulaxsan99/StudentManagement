@@ -38,7 +38,9 @@ const login = () => {
         return { success: 1 };
       } else if (data.success && data.token && data.jobRole == 'teacher') {
         localStorage.setItem('loginToken', data.token);
-        navigate('/Teacher');
+        navigate('/Teacher',{state:{
+          inputs
+        }});
         setWait(false);
         return { success: 1 };
       }
@@ -58,7 +60,8 @@ const login = () => {
   const userlogin = async (e) => {
     e.preventDefault();
     const data = await loginUser(inputs);
-    // console.log(data)
+    setErrMsg(data.message)
+    console.log(data.message)
   }
   return (
     <form
