@@ -113,7 +113,7 @@ const login = () => {
 
       <div className="d-grid">
         <button type="submit" className="btn btn-primary">
-          Sign Up
+          Sign In
         </button>
         {errMsg && <div className="err-msg">{errMsg}</div>}
       </div>
