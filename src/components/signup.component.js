@@ -13,12 +13,18 @@ export default function SignUp() {
     }
     const onSubmit = (event) => {
             event.preventDefault();
-        console.log(inputs);
+        // console.log(inputs);
     
         try {
             axios.post('http://localhost/StudentAPi/index', inputs).then(function(response){
-                console.log(response.data);
+                console.log(response.data.status);
+                if(response.data.status){
+                    navigate('/sign-in')
+                }else{
+                    navigate('/sign-up')
+                }
             });
+           
 
         } catch (error) {
             console.log(error)
